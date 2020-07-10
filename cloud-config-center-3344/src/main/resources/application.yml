@@ -1,0 +1,34 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center  #注冊進eureka服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jiuxinqkl/springcloud-config.git #GitHub上面的仓库名字
+          search-paths:
+            - springcloud-config
+            #读取分支
+      label: master
+#rabbitmq的相关配置
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+ #服務注册到eureka地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+      #rabbitmq相關配置，暴露bus刷新配置的端點
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
+
